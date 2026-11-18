@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+apps/web/dist/
+.vite/
+
+# Data & Models (ignore large artifacts, preserve manifests)
+data/raw/
+data/external/
+ml/artifacts/*.pt
+ml/artifacts/*.pkl
+ml/artifacts/*.onnx
+!ml/artifacts/.gitkeep
+
+# Environment & IDE
+.env
+.DS_Store
+.vscode/
+.idea/

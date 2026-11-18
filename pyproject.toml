@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scentiq"
+version = "0.1.0"
+description = "Computational Olfaction, Molecular Odor Intelligence and Research Platform"
+readme = "README.md"
+authors = [{ name = "ScentIQ Research Team" }]
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.1",
+    "httpx>=0.27.0",
+    "numpy>=1.26.0",
+    "scipy>=1.11.0",
+    "scikit-learn>=1.4.0",
+    "torch>=2.0.0",
+    "pandas>=2.2.0",
+    "rdkit-pypi>=2022.9.5"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["ml/src", "apps/api"]

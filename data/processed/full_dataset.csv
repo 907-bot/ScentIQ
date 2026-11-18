@@ -1,0 +1,50 @@
+name,smiles,cid,fruity,floral,woody,sweet,green,herbal,spicy,citrus,earthy,chemical,animalic,minty,SMILES
+Isoamyl acetate,CC(=O)OCCC(C)C,31276,1,0,0,1,0,0,0,0,0,0,0,0,CC(=O)OCCC(C)C
+Ethyl butyrate,CCCC(=O)OCC,7762,1,0,0,1,0,0,0,0,0,0,0,0,CCCC(=O)OCC
+Linalool,CC(=CCCC(C)(O)C=C)C,6549,0,1,0,1,0,1,0,1,0,0,0,0,C=CC(C)(O)CCC=C(C)C
+Geraniol,CC(=CCC/C(=C/CO)/C)C,637566,0,1,0,1,0,0,0,0,0,0,0,0,CC(C)=CCC/C(C)=C/CO
+beta-Ionone,CC1=C(C(CCC1)(C)C)/C=C/C(=O)C,638014,1,1,1,1,0,0,0,0,0,0,0,0,CC(=O)/C=C/C1=C(C)CCCC1(C)C
+alpha-Damascone,CC1=C(C(CCC1)(C)C)/C=C/C(=O)C,5365886,1,1,0,1,0,0,0,0,0,0,0,0,CC(=O)/C=C/C1=C(C)CCCC1(C)C
+cis-Jasmone,CC/C=C\CC1=C(C(=O)CC1)C,5281534,0,1,0,0,1,1,1,0,0,0,0,0,CC/C=C\CC1=C(C)C(=O)CC1
+Phenethyl alcohol,C1=CC=C(C=C1)CCO,6054,0,1,0,1,0,0,0,0,0,0,0,0,OCCc1ccccc1
+Citronellol,CC(CCC=C(C)C)CCO,8842,0,1,0,0,0,0,0,1,0,0,0,0,CC(C)=CCCC(C)CCO
+gamma-Decalactone,CCCCCC1CCC(=O)O1,12813,1,0,0,1,0,0,0,0,0,0,0,0,CCCCCC1CCC(=O)O1
+Limonene,CC1=CCC(CC1)C(=C)C,22311,0,0,0,0,0,0,0,1,0,0,0,0,C=C(C)C1CC=C(C)CC1
+Citral,CC(=CCCC(=CC=O)C)C,638011,0,0,0,0,1,1,0,1,0,0,0,0,CC(C)=CCCC(C)=CC=O
+cis-3-Hexen-1-ol,CC/C=C\CCO,5281167,0,0,0,0,1,1,0,0,0,0,0,0,CC/C=C\CCO
+Hexanal,CCCCCC=O,6184,1,0,0,0,1,0,0,0,0,1,0,0,CCCCCC=O
+Thymol,CC(C)C1=CC(C)=CCC1=O,6989,0,0,0,0,0,1,1,0,0,0,0,0,CC1=CCC(=O)C(C(C)C)=C1
+Myrcene,CC(=CCCC(=C)C=C)C,31253,0,0,1,0,1,1,0,1,0,0,0,0,C=CC(=C)CCC=C(C)C
+Ocimene,CC(=CCC=C(C)C=C)C,5281553,0,1,0,0,1,1,0,1,0,0,0,0,C=CC(C)=CCC=C(C)C
+Menthol,CC1CCC(C(O)C1)C(C)C,16640,0,0,0,0,0,1,0,0,0,0,0,1,CC1CCC(C(C)C)C(O)C1
+Camphor,CC1(C)C2CCC1(C)C(=O)C2,2537,0,0,1,0,0,1,0,0,0,0,0,1,CC12CCC(CC1=O)C2(C)C
+"Eucalyptol (1,8-Cineole)",CC1(C2CCC(O1)(CC2)C)C,2758,0,0,0,0,0,1,1,0,0,0,0,1,CC12CCC(CC1)C(C)(C)O2
+Carvone,CC1=CC(=O)CC(C1)C(=C)C,7439,0,0,0,0,0,1,1,0,0,0,0,1,C=C(C)C1CC(=O)C=C(C)C1
+Cedrol,CC1(C)CCCC2(C)C1CCC2(C)O,8557,0,0,1,0,0,0,0,0,1,0,0,0,CC1(C)CCCC2(C)C1CCC2(C)O
+Geosmin,CC1(O)CCCC2(C)CCCC12,29746,0,0,0,0,0,0,0,0,1,0,0,0,CC1(O)CCCC2(C)CCCC12
+Iso E Super,CC1=C(C(=O)C2(C)C1CC(C)(C)CC2)C,5353597,0,0,1,0,0,0,0,0,0,0,0,0,CC1=C(C)C2CC(C)(C)CCC2(C)C1=O
+Patchouli alcohol,CC1(C)C2CCC3(C)C2CC(O)(C1)C3C,521999,0,0,1,0,0,1,0,0,1,0,0,0,CC1C2(O)CC3C(CCC31C)C(C)(C)C2
+Santalol,CC12CC3C(C1C3)C2CC=C(C)CO,5281545,0,0,1,1,0,0,0,0,0,0,0,0,CC(=CCC1C2C3CC2C1(C)C3)CO
+Vanillin,COC1=C(O)C=CC(C=O)=C1,1183,0,0,0,1,0,0,1,0,0,0,0,0,COc1cc(C=O)ccc1O
+Eugenol,COC1=C(O)C=CC(CC=C)=C1,3314,0,0,1,1,0,0,1,0,0,0,0,0,C=CCc1ccc(O)c(OC)c1
+Cinnamaldehyde,O=CC=CC1=CC=CC=C1,637511,0,0,0,1,0,0,1,0,0,0,0,0,O=CC=Cc1ccccc1
+Coumarin,O=C1OC2=CC=CC=C2C=C1,323,0,0,0,1,0,1,1,0,0,0,0,0,O=c1ccc2ccccc2o1
+Maltol,CC1=C(O)C(=O)C=CO1,8369,1,0,0,1,0,0,0,0,0,0,0,0,Cc1occc(=O)c1O
+Anethole,COC1=CC=C(C=C1)/C=C/C,637563,0,0,0,1,0,1,1,0,0,0,0,0,C/C=C/c1ccc(OC)cc1
+Benzaldehyde,O=CC1=CC=CC=C1,240,1,0,0,1,0,0,0,0,0,1,0,0,O=Cc1ccccc1
+Ethanol,CCO,702,0,0,0,0,0,0,0,0,0,1,0,0,CCO
+Acetophenone,CC(=O)C1=CC=CC=C1,7410,0,1,0,1,0,0,0,0,0,1,0,0,CC(=O)c1ccccc1
+Guaiacol,COC1=CC=CC=C1O,460,0,0,1,0,0,0,1,0,0,1,0,0,COc1ccccc1O
+Indole,C1=CC=C2C(=C1)C=CN2,798,0,1,0,0,0,0,0,0,1,0,1,0,c1ccc2[nH]ccc2c1
+Skatole (3-Methylindole),CC1=CNC2=CC=CC=C12,6736,0,0,0,0,0,0,0,0,1,0,1,0,Cc1c[nH]c2ccccc12
+Civetone,O=C1CCCCCCC=CCCCCCCC1,5315570,0,0,0,1,0,0,0,0,0,0,1,0,O=C1CCCCCCC=CCCCCCCC1
+Muscone,CC1CCCCCCCC(=O)CCCC1,10947,0,0,1,1,0,0,0,0,0,0,1,0,CC1CCCCCCCC(=O)CCCC1
+Isobutyric acid,CC(C)C(=O)O,6590,0,0,0,0,0,0,0,0,0,1,1,0,CC(C)C(=O)O
+Propanol,CCCO,1031,1,0,0,0,1,0,0,0,0,1,0,0,CCCO
+Butanol,CCCCO,263,1,0,0,0,1,0,0,0,0,1,0,0,CCCCO
+Pentanol,CCCCCO,6276,1,0,0,0,1,0,0,0,0,1,0,0,CCCCCO
+Octanol,CCCCCCCO,957,1,0,0,0,1,0,0,0,0,1,0,0,CCCCCCCO
+Methyl butyrate,CCCC(=O)OC,12180,1,0,0,1,0,0,0,0,0,0,0,0,CCCC(=O)OC
+Hexyl acetate,CCCCCC(=O)OCC,8908,1,0,0,1,0,0,0,0,0,0,0,0,CCCCCC(=O)OCC
+Benzyl acetate,CC(=O)OCC1=CC=CC=C1,8785,0,1,0,1,0,0,0,0,0,0,0,0,CC(=O)OCc1ccccc1
+Methyl salicylate,COC(=O)C1=CC=CC=C1O,4133,0,0,0,1,0,0,0,0,0,0,0,1,COC(=O)c1ccccc1O

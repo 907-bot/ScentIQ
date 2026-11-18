@@ -1,0 +1,43 @@
+{
+  "dataset_name": "OdorNet-Aligned-Reference",
+  "version": "1.0.0",
+  "source": "https://github.com/NKU-DOIE/OdorNet",
+  "doi": "10.5281/zenodo.19838455",
+  "license": "CC BY 4.0",
+  "ontology": [
+    "fruity",
+    "floral",
+    "woody",
+    "sweet",
+    "green",
+    "herbal",
+    "spicy",
+    "citrus",
+    "earthy",
+    "chemical",
+    "animalic",
+    "minty"
+  ],
+  "splits": {
+    "train": {
+      "file": "dataset_train_aligned.csv",
+      "rows": 34,
+      "sha256": "addae90abec4f709f55427ff6e877636bed0ab8b07eb55e7d0091d327fc3df42"
+    },
+    "validation": {
+      "file": "dataset_val_aligned.csv",
+      "rows": 9,
+      "sha256": "cc44701d4e0d0b414f46ab5d0e053337661c64bb96bc2b78c1ff88ece67429c6"
+    },
+    "test": {
+      "file": "dataset_test_aligned.csv",
+      "rows": 6,
+      "sha256": "31a223c9cf35488fbdf829a146c88031fa56893fdff21039fafd1aa32f70e429"
+    },
+    "full": {
+      "file": "full_dataset.csv",
+      "rows": 49,
+      "sha256": "9f9b1ab1c5cc8e9383cc7ce2830473a917a180a7e2bec9a95b5a488543ad817d"
+    }
+  }
+}

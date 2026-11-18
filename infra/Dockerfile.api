@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libxrender1 \
+    libxext6 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir fastapi "uvicorn[standard]" pydantic-settings httpx numpy scipy scikit-learn torch pandas rdkit-pypi
+
+COPY ml/ ml/
+COPY apps/api/ apps/api/
+COPY data/ data/
+
+ENV PYTHONPATH="/app/ml/src:/app/apps/api"
+
+EXPOSE 8000
+
+CMD ["uvicorn", "scentiq_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

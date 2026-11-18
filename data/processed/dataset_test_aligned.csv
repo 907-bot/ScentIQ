@@ -1,0 +1,7 @@
+fruity,floral,woody,sweet,green,herbal,spicy,citrus,earthy,chemical,animalic,minty,SMILES
+0,0,0,0,0,1,1,0,0,0,0,1,C=C(C)C1CC(=O)C=C(C)C1
+0,1,0,1,0,0,0,0,0,0,0,0,OCCc1ccccc1
+1,0,0,0,1,0,0,0,0,1,0,0,CCCCO
+0,0,0,0,0,1,1,0,0,0,0,0,CC1=CCC(=O)C(C(C)C)=C1
+0,0,0,1,0,0,1,0,0,0,0,0,O=CC=Cc1ccccc1
+0,0,0,1,0,0,0,0,0,0,1,0,O=C1CCCCCCC=CCCCCCCC1
