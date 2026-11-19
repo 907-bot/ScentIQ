@@ -16,9 +16,10 @@ from scentiq_api.core.errors import ScentIQException
 
 class ChemistryService:
     """Handles molecular validation and chemical feature extraction."""
+    _shared_store: Dict[str, MoleculeResponse] = {}
 
     def __init__(self):
-        self.molecule_store: Dict[str, MoleculeResponse] = {}
+        self.molecule_store = ChemistryService._shared_store
 
     def process_smiles(
         self,

@@ -27,6 +27,7 @@ from scentiq_api.core.errors import ScentIQException
 
 class PredictionService:
     """Manages prediction pipeline, calibration, and explainability."""
+    _shared_store: Dict[str, SinglePredictionResponse] = {}
 
     def __init__(self, registry: ModelRegistry):
         self.registry = registry
@@ -41,8 +42,8 @@ class PredictionService:
         else:
             self.ood_detector = OODDetector()
 
-        # Cached predictions
-        self.prediction_store: Dict[str, SinglePredictionResponse] = {}
+        # Shared cached predictions
+        self.prediction_store = PredictionService._shared_store
 
     def predict_single(self, request: SinglePredictionRequest, mol: Chem.Mol, canonical_smiles: str, mol_id: str) -> SinglePredictionResponse:
         model_info = self.registry.get_model_info(request.model_id)

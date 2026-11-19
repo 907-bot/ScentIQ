@@ -11,9 +11,10 @@ from scentiq_api.core.errors import ScentIQException
 
 class ReportService:
     """Manages report compilation, citation assembly, and export formatting."""
+    _shared_store: Dict[str, ReportResponse] = {}
 
     def __init__(self):
-        self.reports_store: Dict[str, ReportResponse] = {}
+        self.reports_store = ReportService._shared_store
 
     def create_report(
         self,
