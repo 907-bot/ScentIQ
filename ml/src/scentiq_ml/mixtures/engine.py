@@ -30,9 +30,12 @@ class MixtureEngine:
         if len(components) < 2:
             raise ValueError("A mixture requires at least two chemical components.")
 
-        total_fraction = sum(c["fraction"] for c in components)
+        total_fraction = sum(c.get("fraction", 0.0) for c in components)
+        if total_fraction <= 0:
+            raise ValueError("Sum of mixture component fractions must be strictly positive.")
+
         if abs(total_fraction - 1.0) > 0.05:
-            # Normalize fractions if close to 1
+            # Normalize fractions if close to 1 or across arbitrary scales
             for c in components:
                 c["fraction"] = c["fraction"] / total_fraction
 

@@ -12,11 +12,12 @@ from scentiq_ml.chemistry import (
 )
 from scentiq_api.schemas.molecules import MoleculeResponse, MoleculeDescriptors
 from scentiq_api.core.errors import ScentIQException
+from scentiq_api.core.cache import BoundedLRUDict
 
 
 class ChemistryService:
     """Handles molecular validation and chemical feature extraction."""
-    _shared_store: Dict[str, MoleculeResponse] = {}
+    _shared_store = BoundedLRUDict[str, MoleculeResponse](maxsize=2000)
 
     def __init__(self):
         self.molecule_store = ChemistryService._shared_store

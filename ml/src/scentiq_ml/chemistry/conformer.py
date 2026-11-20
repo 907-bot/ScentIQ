@@ -1,8 +1,11 @@
 """3D conformer generation and coordinate extraction for WebGL / Three.js visualization."""
 
+import threading
 from typing import Dict, Any, List
 from rdkit import Chem
 from rdkit.Chem import AllChem
+
+_CONFORMER_MUTEX = threading.Lock()
 
 
 # Standard CPK element colors in Hex for 3D rendering
@@ -41,55 +44,56 @@ def generate_3d_coordinates(mol: Chem.Mol, max_attempts: int = 50) -> Dict[str, 
     Generate 3D coordinates for a molecule using ETKDG and MMFF optimization.
     Returns atom positions, element types, radii, colors, and bond connectivity.
     """
-    mol_3d = Chem.AddHs(mol)
-    params = AllChem.ETKDGv3()
-    params.randomSeed = 42
+    with _CONFORMER_MUTEX:
+        mol_3d = Chem.AddHs(mol)
+        params = AllChem.ETKDGv3()
+        params.randomSeed = 42
 
-    conf_id = AllChem.EmbedMolecule(mol_3d, params)
-    if conf_id == -1:
-        # Fallback to random coordinates if distance geometry fails
-        AllChem.EmbedMolecule(mol_3d, useRandomCoords=True, maxAttempts=max_attempts)
+        conf_id = AllChem.EmbedMolecule(mol_3d, params)
+        if conf_id == -1:
+            # Fallback to random coordinates if distance geometry fails
+            AllChem.EmbedMolecule(mol_3d, useRandomCoords=True, maxAttempts=max_attempts)
 
-    # Attempt MMFF force-field optimization
-    try:
-        AllChem.MMFFOptimizeMolecule(mol_3d, maxIters=200)
-    except Exception:
+        # Attempt MMFF force-field optimization
         try:
-            AllChem.UFFOptimizeMolecule(mol_3d, maxIters=200)
+            AllChem.MMFFOptimizeMolecule(mol_3d, maxIters=200)
         except Exception:
-            pass
+            try:
+                AllChem.UFFOptimizeMolecule(mol_3d, maxIters=200)
+            except Exception:
+                pass
 
-    conf = mol_3d.GetConformer()
-    atoms: List[Dict[str, Any]] = []
+        conf = mol_3d.GetConformer()
+        atoms: List[Dict[str, Any]] = []
 
-    for atom in mol_3d.GetAtoms():
-        idx = atom.GetIdx()
-        pos = conf.GetAtomPosition(idx)
-        sym = atom.GetSymbol()
-        atoms.append({
-            "idx": idx,
-            "element": sym,
-            "x": round(float(pos.x), 4),
-            "y": round(float(pos.y), 4),
-            "z": round(float(pos.z), 4),
-            "color": ELEMENT_COLORS.get(sym, '#808080'),
-            "radius": VDW_RADII.get(sym, 1.5) * 0.35  # scaled for ball-and-stick
-        })
+        for atom in mol_3d.GetAtoms():
+            idx = atom.GetIdx()
+            pos = conf.GetAtomPosition(idx)
+            sym = atom.GetSymbol()
+            atoms.append({
+                "idx": idx,
+                "element": sym,
+                "x": round(float(pos.x), 4),
+                "y": round(float(pos.y), 4),
+                "z": round(float(pos.z), 4),
+                "color": ELEMENT_COLORS.get(sym, '#808080'),
+                "radius": VDW_RADII.get(sym, 1.5) * 0.35  # scaled for ball-and-stick
+            })
 
-    bonds: List[Dict[str, Any]] = []
-    for bond in mol_3d.GetBonds():
-        bonds.append({
-            "source": bond.GetBeginAtomIdx(),
-            "target": bond.GetEndAtomIdx(),
-            "order": float(bond.GetBondTypeAsDouble())
-        })
+        bonds: List[Dict[str, Any]] = []
+        for bond in mol_3d.GetBonds():
+            bonds.append({
+                "source": bond.GetBeginAtomIdx(),
+                "target": bond.GetEndAtomIdx(),
+                "order": float(bond.GetBondTypeAsDouble())
+            })
 
-    return {
-        "status": "generated",
-        "method": "RDKit ETKDGv3 + MMFF94",
-        "is_experimental_structure": False,
-        "atoms": atoms,
-        "bonds": bonds,
-        "num_atoms": len(atoms),
-        "num_bonds": len(bonds)
-    }
+        return {
+            "status": "generated",
+            "method": "RDKit ETKDGv3 + MMFF94",
+            "is_experimental_structure": False,
+            "atoms": atoms,
+            "bonds": bonds,
+            "num_atoms": len(atoms),
+            "num_bonds": len(bonds)
+        }

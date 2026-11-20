@@ -112,8 +112,8 @@ export const OdorMapPage: React.FC<Props> = ({ onSelectMolecule }) => {
     const canvas = canvasRef.current;
     if (!canvas || !mapData?.points?.length) return;
     const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    const mouseX = (e.clientX - rect.left) * (canvas.width / (rect.width || 1));
+    const mouseY = (e.clientY - rect.top) * (canvas.height / (rect.height || 1));
 
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     mapData.points.forEach(p => {

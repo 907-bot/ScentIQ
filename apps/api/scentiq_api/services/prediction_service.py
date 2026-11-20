@@ -23,11 +23,12 @@ from scentiq_api.schemas.predictions import (
     ExplanationInfo
 )
 from scentiq_api.core.errors import ScentIQException
+from scentiq_api.core.cache import BoundedLRUDict
 
 
 class PredictionService:
     """Manages prediction pipeline, calibration, and explainability."""
-    _shared_store: Dict[str, SinglePredictionResponse] = {}
+    _shared_store = BoundedLRUDict[str, SinglePredictionResponse](maxsize=2000)
 
     def __init__(self, registry: ModelRegistry):
         self.registry = registry
@@ -150,11 +151,14 @@ class PredictionService:
                 return scores
             return {lbl: 0.2 for lbl in ODORNET_CATEGORY_METADATA.keys()}
 
-        blend_res = self.mixture_engine.predict_blend(
-            components=[c.model_dump() for c in request.components],
-            concentration_basis=request.concentration_basis,
-            single_prediction_fn=single_pred_fn
-        )
+        try:
+            blend_res = self.mixture_engine.predict_blend(
+                components=[c.model_dump() for c in request.components],
+                concentration_basis=request.concentration_basis,
+                single_prediction_fn=single_pred_fn
+            )
+        except ValueError as e:
+            raise ScentIQException(code="INVALID_MIXTURE", message=str(e), status_code=400)
 
         profile_scores: List[OdorScore] = []
         for label, val in blend_res["predicted_blend_profile"].items():

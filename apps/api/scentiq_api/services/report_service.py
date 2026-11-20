@@ -7,11 +7,12 @@ from scentiq_api.schemas.reports import CreateReportRequest, ReportResponse
 from scentiq_api.schemas.molecules import MoleculeResponse
 from scentiq_api.schemas.predictions import SinglePredictionResponse
 from scentiq_api.core.errors import ScentIQException
+from scentiq_api.core.cache import BoundedLRUDict
 
 
 class ReportService:
     """Manages report compilation, citation assembly, and export formatting."""
-    _shared_store: Dict[str, ReportResponse] = {}
+    _shared_store = BoundedLRUDict[str, ReportResponse](maxsize=1000)
 
     def __init__(self):
         self.reports_store = ReportService._shared_store

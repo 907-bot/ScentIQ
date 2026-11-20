@@ -36,21 +36,28 @@ class AtomAttributionEngine:
         num_atoms = mol.GetNumAtoms()
 
         if self.gnn_model is not None:
-            self.gnn_model.eval()
-            x, edge_index, _ = mol_to_graph_data(mol)
-            x.requires_grad = True
+            lock = getattr(self.gnn_model, "_inference_lock", None)
+            if lock is None:
+                lock = threading.Lock()
 
-            logits, _ = self.gnn_model(x, edge_index)
-            target_score = logits[0, label_idx]
-            target_score.backward()
+            with lock:
+                self.gnn_model.eval()
+                self.gnn_model.zero_grad(set_to_none=True)
+                x, edge_index, _ = mol_to_graph_data(mol)
+                x.requires_grad = True
 
-            # L2 norm of gradients per atom feature vector
-            with torch.no_grad():
-                grads = x.grad.abs().sum(dim=-1).cpu().numpy()
-                if grads.max() > 0:
-                    normalized_scores = (grads / grads.max()).tolist()
-                else:
-                    normalized_scores = [0.1] * num_atoms
+                logits, _ = self.gnn_model(x, edge_index)
+                target_score = logits[0, label_idx]
+                target_score.backward()
+
+                # L2 norm of gradients per atom feature vector
+                with torch.no_grad():
+                    grads = x.grad.abs().sum(dim=-1).cpu().numpy()
+                    if grads.max() > 0:
+                        normalized_scores = (grads / grads.max()).tolist()
+                    else:
+                        normalized_scores = [0.1] * num_atoms
+                self.gnn_model.zero_grad(set_to_none=True)
         else:
             # Analytical substructure sensitivity fallback (e.g. functional group attribution)
             normalized_scores = []

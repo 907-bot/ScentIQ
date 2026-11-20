@@ -1,5 +1,6 @@
 """Molecular Graph Neural Network (MPNN/GNN) for multi-label odor prediction."""
 
+import threading
 from typing import List, Dict, Optional, Tuple
 import torch
 import torch.nn as nn
@@ -63,6 +64,7 @@ class MolecularGNN(nn.Module):
         self.model_version = "0.1.0"
         self.task = "single_molecule_odor_multilabel"
         self.dataset_name = "OdorNet"
+        self._inference_lock = threading.Lock()
 
         self.input_proj = nn.Linear(node_in_dim, hidden_dim)
         self.conv_layers = nn.ModuleList([
@@ -98,12 +100,13 @@ class MolecularGNN(nn.Module):
 
     def predict_scores(self, mol: Chem.Mol) -> Tuple[Dict[str, float], List[float]]:
         """Predict scores and return molecular embedding."""
-        self.eval()
-        with torch.no_grad():
-            x, edge_index, _ = mol_to_graph_data(mol)
-            logits, embedding = self.forward(x, edge_index)
-            probs = torch.sigmoid(logits).squeeze(0).cpu().numpy()
-            emb_list = embedding.squeeze(0).cpu().numpy().tolist()
+        with self._inference_lock:
+            self.eval()
+            with torch.no_grad():
+                x, edge_index, _ = mol_to_graph_data(mol)
+                logits, embedding = self.forward(x, edge_index)
+                probs = torch.sigmoid(logits).squeeze(0).cpu().numpy()
+                emb_list = embedding.squeeze(0).cpu().numpy().tolist()
 
         scores = {label: round(float(probs[i]), 4) for i, label in enumerate(self.labels)}
         return scores, emb_list
