@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY pyproject.toml .
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir fastapi "uvicorn[standard]" pydantic-settings httpx numpy scipy scikit-learn torch pandas rdkit-pypi
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir fastapi "uvicorn[standard]" pydantic-settings httpx numpy scipy scikit-learn pandas rdkit-pypi
 
 COPY ml/ ml/
 COPY apps/api/ apps/api/
