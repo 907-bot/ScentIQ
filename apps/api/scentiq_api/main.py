@@ -63,6 +63,7 @@ async def root():
         "project": "ScentIQ",
         "description": "Computational Olfaction and Molecular Odor Intelligence Platform",
         "version": settings.app_version,
+        "cors_status": "enabled_for_all_origins",
         "docs": "/docs",
         "api_v1": f"{settings.api_prefix}/health"
     }

@@ -10,10 +10,10 @@ class Settings(BaseSettings):
     app_env: str = "development"
     api_prefix: str = "/api/v1"
     cors_origins: List[str] = [
+        "*",
+        "https://907-bot.github.io",
         "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:5173"
     ]
     pubchem_base_url: str = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
     data_dir: str = "data/processed"
