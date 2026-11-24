@@ -10,7 +10,7 @@ import {
   BlendComponentInput
 } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8008/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://scentiq.onrender.com/api/v1';
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
