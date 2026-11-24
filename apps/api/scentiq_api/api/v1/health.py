@@ -15,7 +15,7 @@ async def health_check():
         "models_status": {
             "baseline_rf": "ready",
             "odornet_gnn": "ready",
-            "openpom_adapter": "experimental",
+            "openpom_adapter": "ready",
             "mixture_prototype": "experimental"
         }
     }

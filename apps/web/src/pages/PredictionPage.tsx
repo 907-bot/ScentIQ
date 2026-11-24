@@ -52,8 +52,8 @@ export const PredictionPage: React.FC<Props> = ({
     {
       id: 'openpom-reproduction',
       name: 'OpenPOM Reproduction Adapter',
-      badge: 'Experimental',
-      status: 'Experimental',
+      badge: 'Adapter',
+      status: 'Ready',
       description: 'Reference reproduction of BioMachineLearning/openpom baseline evaluated on POM task.'
     }
   ];

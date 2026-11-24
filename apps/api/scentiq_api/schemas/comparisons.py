@@ -1,10 +1,11 @@
 """Pydantic schemas for multi-molecule comparison."""
 
 from typing import List, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class CompareMoleculesRequest(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
     smiles_list: List[str] = Field(min_length=2, max_length=4)
     model_id: str = "scentiq-odornet-gnn"
 

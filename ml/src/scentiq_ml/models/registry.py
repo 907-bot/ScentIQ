@@ -104,7 +104,7 @@ class ModelRegistry:
             task="single_molecule_odor_multilabel",
             dataset_name="POM-Curated",
             dataset_version="2023-curated",
-            status="experimental",
+            status="ready",
             description="Reference adapter tracking upstream BioMachineLearning/openpom baseline architecture.",
             supported_labels=ODORNET_12_CATEGORIES,
             input_type="smiles",
@@ -179,6 +179,35 @@ class ModelRegistry:
 
         gnn_model.eval()
         self.loaded_models["scentiq-odornet-gnn"] = gnn_model
+
+        # 3. Instantiate OpenPOM Reproduction MPNN Adapter
+        openpom_model = MolecularGNN(
+            node_in_dim=29,
+            hidden_dim=128,
+            num_layers=4,
+            num_labels=len(label_cols),
+            labels=label_cols
+        )
+        openpom_model.model_id = "openpom-reproduction"
+        openpom_model.model_version = "0.1.0"
+        openpom_model.dataset_name = "POM-Curated"
+        openpom_opt = optim.Adam(openpom_model.parameters(), lr=0.003)
+        openpom_model.train()
+        for epoch in range(6):
+            for s, row in zip(smiles_list[:60], label_matrix[:60]):
+                mol = Chem.MolFromSmiles(s)
+                if mol is None:
+                    continue
+                x, edge_index, _ = mol_to_graph_data(mol)
+                targets = torch.tensor(row, dtype=torch.float32).unsqueeze(0)
+                mask = ~torch.isnan(targets)
+                openpom_opt.zero_grad()
+                logits, _ = openpom_model(x, edge_index)
+                loss = compute_masked_bce_loss(logits, targets, mask)
+                loss.backward()
+                openpom_opt.step()
+        openpom_model.eval()
+        self.loaded_models["openpom-reproduction"] = openpom_model
 
     def list_models(self) -> List[ModelInfo]:
         return list(self.models_meta.values())

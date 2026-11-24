@@ -62,7 +62,7 @@ class PredictionService:
             )
 
         # 1. Run model prediction
-        if request.model_id == "scentiq-odornet-gnn":
+        if request.model_id in ("scentiq-odornet-gnn", "openpom-reproduction"):
             raw_scores, _ = model.predict_scores(mol)
         else:
             raw_scores = model.predict_scores(mol)
@@ -95,7 +95,7 @@ class PredictionService:
         if request.include_explanation:
             target_label = request.explanation_target_label or dominant_cat
             explainer = AtomAttributionEngine(
-                gnn_model=model if request.model_id == "scentiq-odornet-gnn" else None
+                gnn_model=model if request.model_id in ("scentiq-odornet-gnn", "openpom-reproduction") else None
             )
             exp_data = explainer.explain_molecule_label(mol, target_label)
             explanation_info = ExplanationInfo(

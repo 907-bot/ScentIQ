@@ -54,6 +54,7 @@ class SinglePredictionRequest(BaseModel):
 
 
 class SinglePredictionResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
     prediction_id: str
     molecule_id: str
     canonical_smiles: str
@@ -82,6 +83,7 @@ class BlendPredictionRequest(BaseModel):
 
 
 class BlendPredictionResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
     prediction_id: str
     status: str
     model_id: str
